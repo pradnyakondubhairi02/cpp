@@ -1,36 +1,38 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
-class CQ {
-	int rear;
-	int front;
-	
-	public:
-		CQ()   {
-			rear=-1;
-			front=-1;
-		}
-		void enqueue(int[],int,int);
-		void dequeue(int[],int);
-		void display(int[],int n);
-		void isempty();
-		void isfull(int[],int);
+
+class CQ
+{
+    int front ,rear;
+    public: 
+        CQ()
+        {
+             front=rear=-1;
+        }
+
+    int enqueue(int[],int,int);
+    int dequeue(int[],int);
+    int isfull(int[],int);
+    int isempty(int[],int);
+    void display(int[],int);
 };
-void CQ::enqueue(int queue[],int x,int n){
-	cout<<"enter the item in queue:"<<endl;
-	cin>>x;
-    if(front==-1)  {
-    	front++;
-	}
-	rear=(rear+1)%n;
-	queue[rear]=x;
-	
-	if((rear +1)%n==front)   {
-		cout<<"q isfull";
-	}
-	
+
+
+int CQ::enqueue(int queue[],int x,int n)
+{
+    if(front==-1)
+    {
+        front++;
+    }
+    rear=(rear+1)%n;
+    queue[rear]=x;
+    
+    return 0;
 }
-void CQ::dequeue(int queue[],int n)   {
-	int dlt;
+
+int CQ::dequeue(int queue[],int n)
+{
+    	int dlt;
 	if(rear==-1 && front==-1)   {
 		cout<<"queue isempty"<<endl;
 	}
@@ -42,63 +44,91 @@ void CQ::dequeue(int queue[],int n)   {
 		
 	}
 	front=(front+1)%n;
+}
+
+void CQ::display(int queue[],int n){
+    int i;   
+    for( i=front ;i!=rear;i=(i+1)%n){
+        cout<<queue[i]<<"\t";
+    }
+    cout<<queue[i];
+}
+
+int CQ::isfull(int queue[],int n){
+
+    if ((rear+1)%n==front){
+    	cout<<"q is full";
+        return 0; 
+    }
+    else{
+    	cout<<"not full";
+        return -1;
+    }
+}
+
+int CQ::isempty(int queue[],int n){
+
+    if( (front==-1) && (rear==-1 )){
+        return 0;
+    }
+    else{
+    	cout<<"not empty";
+        return -1;
+    }
+}
+
+
+int main(){
 	
-}
-void CQ::isempty()    {
-	if(rear==-1 && front==-1)   {
-		cout<<"queue is empty:"<<endl;
-	}
-	else {
-		cout<<"no,queue is not empty:"<<endl;
-	}
-}
+    int n,x,dlt,ch;
+    int queue[20];
+    CQ P;
+    cout<<"Enter no. of elements:";
+    cin>>n;
 
-void CQ::isfull(int queue[],int n)   {
-	if((rear+1)%n==front)   {
-		cout<<"queueu is full:"<<endl;
-	}
-	else {
-		cout<<"no,queue is not fullll"<<endl;
-	}
-}
-void CQ::display(int queue[],int n)   {
-	int i;
-	cout<<"all enetred items in queue are:"<<endl;
-	for( i=front;i!=rear;i=(i+1)%n )  {
-		cout<<queue[i]<<"\t";
-	}
-	cout<<queue[i];
-}
+    do{
 
-int main()   {
-	int ch,n,x;
-	int queue[20];
-	CQ p;
-	cout<<"how many items u want to enter in q:";
-	cin>>n;
-	do{
-	cout<<"enter your choice:"<<endl;
-	cout<<"\n1.enqueue \n2.dequeue \n3.isempty   \n4.isfull \n5.display:"<<endl;
-	cin>>ch;
-	switch(ch)   {
-		case 1:
-			p.enqueue(queue,x,n);
-			break;
-		case 2:
-			p.dequeue(queue,n);
-			break;
-		case 3:
-			p.isempty();
-			break;
-		case 4:
-			p.isfull(queue,n);
-			break;
-		case 5:
-			p.display(queue,n);
-			break;
-		default:
-			cout<<"invlid!";
-	}
-}while(ch!=0);
+        cout<<"\nEnter your choice:"<<endl;
+        cout<<"1.Insert elements \n2.Display  \n3.delete element \n4.check full cond. \n5.check empty cond. ";
+        cin>>ch;
+
+    switch(ch){
+
+        case(1):
+          
+          cout<<"Enter the elements to be inserted:";
+
+             cin>>x;
+             P.enqueue(queue,x,n);
+        
+
+          break;
+
+        case(2):
+           cout<<"\nEntered elements are:"<<"\t";
+           P.display(queue,n);
+           break;
+
+        case(3):
+        	dlt=P.dequeue(queue,n);
+           
+            break;
+            
+        case (4):
+        	P.isfull(queue,n);
+        	break;
+            
+		case (5):
+			   P.isempty(queue,n);
+//              cout<<"\nDeleted element is:"<<endl;
+//              cout<<dlt<<endl;
+            break;
+
+        default:
+            cout<<"No such case"<<endl;
+
 }
- 
+    }while(ch!=5);
+
+    return 0;
+}
