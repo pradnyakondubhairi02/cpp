@@ -1,0 +1,248 @@
+#include <iostream>
+using namespace std;
+struct student 
+{
+	string name;
+	int roll_no;
+	float sgpa;
+};
+  struct student p[15];
+   int n,i,j;
+  void getdata(int i)   
+  {
+  	for(i=0;i<n;i++)  {
+  	cout<<"name is"<<"\t";
+  	cin>>p[i].name;
+  	cout<<"roll no is"<<"\t";
+  	cin>>p[i].roll_no;
+  	cout<<"sgpa is"<<"\t";
+  	cin>>p[i].sgpa;
+  }
+}
+  
+  void display(int i)  
+  {
+  //	int n;
+  cout<<"entered items are :"<<endl;
+  for(i=0;i<n;i++)  {
+  	cout<<"name"<<"\t"<<p[i].name<<endl;
+  	cout<<"roll_no"<<"\t"<<p[i].roll_no<<endl;
+  	cout<<"sgpa"<<"\t"<<p[i].sgpa<<endl;
+  }
+}
+void lin_search()   
+{
+	int i;
+	float key;
+	cout<<"which sgpa do you want to search? "<<"\t";
+	cin>>key;
+	int temp=0;
+	for(i=0;i<n;i++)  {
+	if(p[i].sgpa==key)   {
+		cout<<"name of that student is"<<"\t"<<p[i].name<<endl<<" & roll no is"<<"\t"<<p[i].roll_no<<endl;
+	temp=1;
+	}
+}
+if(temp==0)  {
+	cout<<"sorry, no any sgpa";
+}
+}
+void roll_list(struct student p[15])   
+{
+	cout<<"rollno list is"<<"\t";
+	for(i=0;i<n;i++)  {
+		cout<<p[i].roll_no<<"\t";
+	}
+	
+	
+}
+void bubble_sort(struct student p[15],int n)       // rollno name
+{      
+	int i,j;
+	cout<<"\nsorted roll no is";
+
+		string temp2=p[j].name;
+		float temp3=p[j].sgpa;
+	   for(i=1;i<n;i++)   {
+	   	for( j=0;j<n-i;j++)   {
+	   		if(p[j].roll_no>p[j+1].roll_no)   {
+	   		
+	    		struct  student temp =p[j];
+	   			temp=p[j];
+	   			p[j]=p[j+1];
+	   			p[j+1]=temp;
+	
+			   }
+		   }
+     }
+   	display(i);
+}
+
+void bin_search(struct student p[15],int n)   
+{
+	int low=0;
+	int high=n-1;
+	
+	int start_index;
+	int end_index;
+	string key;
+	cout<<"enter the name do you want to search"<<"\t";
+	cin>>key;
+	while(low<=high)   {
+		int mid=(low+high)/2;
+		
+		if(p[mid].name==key)  {
+			start_index=mid;
+			high=mid-1;
+		}
+		else if(p[mid].name>key)   {
+			high=mid-1;
+		}
+		else {
+			low=mid+1;
+		}
+	}
+	low=0;
+	high=n-1;
+	
+		while(low<=high)   {
+		int mid=(low+high)/2;
+		if(p[mid].name==key)  {
+			end_index=mid;
+			high=mid-1;
+		}
+		else if(p[mid].name>key)   {
+			high=mid-1;
+		}
+		else {
+			low=mid+1;
+		}
+	}
+	if(start_index != -1 && end_index != -1)    {
+		for(int j=start_index; j<=end_index; j++){
+            cout<<"\nRoll no:"<<"\t"<<p[j].roll_no<<"\nSGPA:"<<"\t\t"<<p[j].sgpa<<endl;
+//		for (start_index=j;j<=end_index;j++)   {
+//			cout<<p[j].name<<"\t"<<p[j].roll_no<<"\t"<<p[j].sgpa;
+			
+		}
+	}
+		else {
+			cout<<"record not found";
+		}
+}
+
+void insertion_sort (struct student p[15],int n)     //namesort
+{
+	cout<<"sorted names are"<<"\t";
+	for(i=0;i<n;i++)  {
+		 struct student temp=p[i];
+		int j=i-1;
+		
+		while(j>=0 && temp.name<p[j].name)     {
+			
+			p[j+1]=p[j];
+			j--;
+			
+		}
+		p[j+1]=temp;
+	}
+		display(i);
+}
+
+
+   // for(int i=1; i<=n ; i++){
+ int partition(struct student p[15],int l,int h)   
+ {
+ 	float pivot=p[l].sgpa;
+ 	 int i=l+1;
+    int j=h;
+    
+    do{
+        while(p[i].sgpa<=pivot)  {
+           i++;
+        }
+
+        while(p[j].sgpa>pivot){
+           j--;
+        }
+
+        if(i<j){
+        	
+            struct student temp=p[i];
+            p[i]=p[j];
+            p[j]=temp;
+        }
+
+    } while (i<j);
+
+    
+
+    struct student temp=p[l];
+    p[l]=p[j];
+    p[j]=temp;
+
+    return j;
+    
+}
+
+void Quick_sort(struct student p[15],int l, int h){
+
+    if(l<h){
+        int pi= partition(p,l,h);
+        Quick_sort(p,l,pi-1);
+        Quick_sort(p,pi+1,h);
+    }
+}
+   
+int main()   {
+  	int i,ch;
+  	string key;
+  	int lb,hb;
+  	cout<<"enter the no of items :"<<endl;
+  	cin>>n;
+  	
+  	do  {
+    cout<<"enter your choice :"<<endl;
+  	cout<<"1.Enter Record \n2.Display Record \n3.Bubble sort  \n4.Insertion sort \n5.Binary Search According to name \n6.Quick sort  \n7.Linear Search"<<endl;
+    cin>>ch;
+    
+    switch(ch)   {
+    	case 1:
+    	    getdata(i);	
+    	    break;
+    	    
+    	case 2 :
+    		display(i);
+    		break;
+    		
+    	case 3:
+    		bubble_sort(p, n);
+    		break;
+    		
+    	case 4:
+			insertion_sort(p, n);
+			break;
+			
+		case 5:
+			bin_search(p, n);
+			break;
+			
+		case 6:
+		    Quick_sort(p,0,n-1);
+		    for(int i=n-1;i>=0;i--)  {
+		    cout<<i;
+		}
+		display(i);
+		    break;
+		    
+		case 7:
+			lin_search();
+			break;
+			
+		default :
+			cout<<"no such case";
+	}
+  }while(ch!=8);
+  
+				            
+        }
