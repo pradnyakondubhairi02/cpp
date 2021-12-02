@@ -1,0 +1,123 @@
+#include <iostream>
+using namespace std;
+
+class stack
+{
+	int top;
+	int arr[];
+	
+	public:
+		stack()  {
+			top=-1;
+		}
+		void push(int);
+		void pop();
+		void display();
+		void chkup(int);
+
+};
+
+void stack::push(int n)
+{
+	
+	if(top!=n-1){
+	int item;
+	cout<<"enter the item in stack:"<<endl;
+	cin>>item;
+	
+	top++;
+	arr[top]=item;
+    }
+    else{
+    	cout<<"Stack is full"<<endl;
+	}
+}
+
+void stack::pop()
+{
+	int item=arr[top];
+	top--;
+	
+	display();
+}
+
+void stack::display()
+{
+	for(int i=top;i>=0;i--)  {
+		cout<<arr[i]<<endl;
+	}
+}
+
+void stack::chkup(int n)
+{
+
+
+	if(top==-1)   {
+		cout<<"stack is empty:"<<endl;
+	}
+	else if(top==n-1)  {
+		cout<<"stack is full:"<<endl;
+	}
+	else {
+		cout<<"stack is neither empty nor full:";
+	}
+}
+/*bool stack::isempty()
+{
+	if(top==-1)  {
+		cout<<"stack is empty";
+	}
+	else {
+		return -1;
+	}
+}
+
+bool stack::isfull()
+{
+	if(top==n)  {
+		cout<<"stack is full";
+		
+	}
+	else {
+		return -1;
+	}
+}
+*/
+int main()
+{
+	stack p;
+	int ch,n;
+	int arr[n];
+	cout<<"how many numbers u want"<<endl;
+	cin>>n;
+	do
+	{
+		cout<<"\n1.insert \n2.delte  \n3.display \n4.check";
+		cout<<"\nenter your choice"<<endl;
+		cin>>ch;
+		
+		
+		switch(ch){
+			case 1:
+				p.push(n);
+				break;
+			case 2:
+				p.pop();
+				break;
+			case 3:
+			    p.display();
+				break;
+			case 4:
+				p.chkup(n);
+				break;
+//			case 4:
+//				p.isempty();
+//				break;
+//			case 5:
+//				p.isfull();
+//				break;
+			case 0:
+				exit;
+			}
+		}while(ch!=0);
+	}
