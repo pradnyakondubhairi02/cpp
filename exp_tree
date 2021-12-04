@@ -1,0 +1,175 @@
+#include <iostream>
+using namespace std;
+
+class tree
+{
+	char data;
+	tree *left,*right;
+	public:
+		tree* create(char);
+	void expression(char[]);
+	void inorder(tree *);
+	void preorder(tree *);
+	void postorder(tree *);
+	void nrecinorder(tree *);
+};
+class stack
+{
+
+	public:
+		tree *t;
+		stack *top;
+		stack *link;
+	stack()
+	{
+		top=NULL;
+	}
+
+	void push(tree *);
+	void pop();
+};
+void stack::push(tree *item)
+{
+
+	stack *newnode=new stack();
+	newnode->t=item;
+    newnode->link=NULL;
+    
+	if(top==NULL)
+	{
+    	top = newnode;
+	}
+	else
+	{
+	    newnode->link=top;
+		top = newnode;
+	}
+}
+void stack::pop()
+{
+	
+	if (top==NULL)
+	{
+		cout<<"stack is empty";
+	}
+    else
+    {
+    stack *ptr1 = top;
+	top=top->link;
+	
+	delete ptr1;
+	}
+		
+}
+
+tree* tree ::create(char operand)
+{
+	
+	tree *newnode=new tree();
+	newnode->data=operand;
+	newnode->left=NULL;
+	newnode->right=NULL;
+	return newnode; 
+}
+
+//recursive traversal
+void tree::inorder(tree* ptr)    {
+	if(ptr==NULL)  
+	    return;
+	
+	inorder(ptr->left);
+	cout<<ptr->data;
+	inorder(ptr->right);
+}
+void tree::preorder(tree* ptr) {
+	if(ptr==NULL) 
+	   return;
+	   cout<<ptr->data;
+	   preorder(ptr->left);
+	   preorder(ptr->right);
+}
+
+void tree::postorder(tree* ptr) {
+	if(ptr==NULL) 
+	   return;
+	   postorder(ptr->left);
+	   postorder(ptr->right);
+	   cout<<ptr->data;
+}
+
+//non recursive traversal
+void tree :: nrecinorder(tree *root)
+{
+	stack s;
+	tree *curr=root;
+	while(1)
+	{
+		while(curr)
+		{
+			s.push(curr);
+			
+			curr=curr->left;	
+		}
+		if(s.top!=NULL)
+		{
+			curr=s.top->t;
+			s.pop();
+			cout<<curr->data;
+			curr=curr->right;
+		}
+		else
+			break;
+		
+	}
+}
+void tree ::expression(char postfix[])
+{
+	int i=0;
+	stack s;
+	tree *ptr;
+
+	while(postfix[i]!='\0')
+	{
+		ptr=create(postfix[i]);
+		if(isalnum(postfix[i]))
+		{
+			s.push(ptr);
+		}
+		else
+		{
+			ptr->right=s.top->t;
+			s.pop();
+			ptr->left=s.top->t;
+			s.pop();
+			s.push(ptr);
+		}
+		i++;
+	}
+	
+
+	ptr=s.top->t;
+	s.pop();
+	cout<<"Inorder Traversal:";
+	inorder(ptr);
+	cout<<"\n";
+	cout<<"Preorder is:";
+	preorder(ptr);
+	cout<<"\n";
+	cout<<"Postorder is:";
+	postorder(ptr);
+	cout<<"non recursive inorder is:";
+	nrecinorder(ptr);
+	
+}
+
+
+int main()
+{
+	tree t1;
+	stack s1;
+	char postfix[20];
+	cout<<"enter the postfix expression:";
+	cin>>postfix;
+	t1.expression(postfix);
+
+}
