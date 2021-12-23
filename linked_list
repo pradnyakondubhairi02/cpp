@@ -1,0 +1,144 @@
+#include <iostream>
+using namespace std;
+class Stack {
+	int data;
+	Stack *link;//self refrencing class
+	Stack *head;
+	public:
+	Stack(){
+	head=NULL;
+	}
+		void push(int,int);
+		void pop();
+		void peek();
+		void display();
+		bool isfull(int);
+		bool isempty();
+		void distroy_stack();
+		
+};
+bool Stack :: isfull(int s){
+	int count=0;
+	Stack *ptr;
+	ptr=head;
+	while(head!=NULL && ptr->link!=NULL){
+		count++;
+		ptr=ptr->link;
+	}
+	count++;
+	if(count==s){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+bool Stack :: isempty(){
+	if(head==NULL){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+void Stack :: push(int x,int s){
+	if(!isfull(s)){
+    	Stack *newnode=new Stack();
+    	newnode->data=x;
+     	newnode->link=NULL;
+	    if (head==NULL){
+		    head=newnode;
+		}
+	    else{
+	        newnode->link=head;
+            head=newnode;
+	    }
+    }
+    else{
+    	cout<<"Stack is full";
+	}
+}
+void Stack :: pop(){
+	if (isempty()){
+		cout<<"your stack already empty.";
+	}
+	else{
+	    Stack *ptr;
+        ptr=head;
+        head=head->link;
+        delete ptr;
+	}
+}
+void Stack :: display(){
+	    Stack *ptr;
+	    ptr=head;
+	    if(head!=NULL){
+		while( ptr->link!=NULL){
+	    	cout<<ptr->data<<"\t";
+			ptr=ptr->link;
+	   }
+	  	cout<<ptr->data<<"\t";
+	  }
+	  else{
+	  	cout<<"Stack is empty";
+	  }
+}
+void Stack :: peek(){
+	if(!isempty()){
+	cout<<head->data;
+    }
+    else{
+    	cout<<"Stack is empty";
+	}
+}
+void Stack :: distroy_stack(){
+	while(!isempty()){
+		pop();
+    }
+    cout<<"Stack is distroyed"; 
+}
+
+int main (){
+	int a,j,size;
+	Stack p;
+	cout<<"Enter the size of an stack";
+	cin>>size;
+	 do{    
+        	    cout<<"\n1.push\n2.pop\n3.Diplay\n4.peek element\n5.isempty()\n6.isfull()\n7.distroy Stack \nEnter your choice :- ";
+        	    cin>>a;
+        	    switch (a) {
+        	       case 0:
+        	    	   cout<<"\nProgram is terminate";
+        	    	   break;
+        	       case 1: 
+        	           cout<<"which element do you want to add? ";
+        	           cin>>j;
+        	    	   p.push(j,size);
+        	           break;
+        	       case 2: 
+        	    	   p.pop();
+        	           break;
+        	       case 3: 
+        	    	   p.display();
+        	           break;
+        	       case 4:
+        	       	   p.peek();
+        	       	   break;
+        	       case 5:
+        	       	   cout<<p.isempty();
+        	       	   break;
+				   case 6:
+        	       	   cout<<p.isfull(size);
+        	       	   break;
+				   case 7:
+        	       	   p.distroy_stack();
+        	       	   break;		  		  	   
+        	       default:
+        	          cout<<"Invalid choice";
+        	       
+        	     }
+        	     
+        	     } while(a!=0);
+		
+	
+}
