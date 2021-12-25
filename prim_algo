@@ -1,0 +1,106 @@
+#include<iostream>
+using namespace std;
+class graph
+{
+	int node,edge;
+	int mat[20][20];
+	public: 
+		void getdata();
+		void prim();
+		graph()
+		{
+			for (int i=0; i<20;i++)
+			{
+				for(int j=0;j<20;j++)
+				{
+				  mat[i][j]=0;
+		     	}
+			}
+		}
+};
+
+void graph::getdata()
+{
+	 int  src, dest,weight;
+	cout<<"enter the number of nodes:";
+	cin>>node;
+	
+	cout<<"enter the number of edges:";
+	cin>>edge;
+	for (int i=0;i<edge;i++)
+	{
+		cout<<"Enter the source:";
+		cin>>src;
+		cout<<"enter the destination:";
+		cin>>dest;
+		cout<<"enter the distance:";
+		cin>>weight;
+		mat[src][dest]=weight;
+		mat[dest][src]=weight;
+    } 
+} 
+
+void graph::prim()
+{
+	int select[20];
+	int src,dest,min_d;
+	int i,j,k,total_wt=0;
+	for(i=0;i<node;i++)
+	{
+		select[i]=0;
+	}
+	cout<<"The minimum spanning  tree is:"<<endl;
+	select[0]=1;
+	
+	for(k=1;k<node;k++)
+	{
+		min_d=9999;
+		for(i=0;i<node;i++)
+		{
+		
+			for(j=0;j<node;j++)
+			{
+				if((mat[i][j]!=0) &&(select[i]!=select[j]))
+				{
+					if(mat[i][j]<min_d)
+					{
+						min_d=mat[i][j];
+						src=i;
+						dest=j;
+					}
+				}
+			}
+	    } 
+		cout<<"edge("<<src<<" "<<dest<<") and weight="<<min_d<<endl;
+	    select[src]=select[dest]=1;
+		total_wt= total_wt+min_d;
+		
+	}
+   cout<<"\t total path length is:"<<total_wt;
+}
+
+int main()
+{
+	graph g;
+	int ch;
+	
+	do{
+		cout<<"\nenter your choice";
+		cout<<"\n1.getdata \n2.prims algo";
+		cin>>ch;
+		
+		switch(ch){
+			case 1:
+				g.getdata();
+				break;
+			case 2:
+				g.prim();
+            	cout<<endl;
+            	break;
+		}
+	}while(ch!=0);
+	
+
+	return 0;
+	
+}
