@@ -1,0 +1,106 @@
+#include <iostream>
+using namespace std;
+
+template <class t>
+class matrix
+{
+     int mat[5][5];
+	 int row,col;
+	 
+	 public:
+	    void getdata();
+		void add(matrix x,matrix y); 
+		void display();	
+};
+
+template <class t>
+void matrix< t>::getdata()
+{
+	int i,j;
+	cout<<"\nrow:";
+	cin>>row;
+	cout<<"\ncolumn:";
+	cin>>col;
+	
+	for(i=0;i<row;i++)  
+	 {
+	 	for(j=0;j<col;j++)  
+	 	{
+	 		cout<<"elements:";
+	 		cin>>mat[i][j];
+		 }
+		
+	}
+}
+
+template <class t>
+void matrix< t>::add(matrix m1,matrix m2)
+{
+	if(m1.row==m2.row && m1.col==m2.col)   {
+	  int i,j;
+	row=m1.row;
+	col=m1.col;
+	
+	for(i=0;i<row;i++)  {
+	    for(j=0;j<col;j++)  
+		{
+		 	mat[i][j]=m1.mat[i][j] +m2.mat[i][j];
+	}
+}
+}
+      else {
+      	cout<<"addition is not possible";
+	  }
+}
+
+template <class t>
+void matrix< t>::display()    
+{
+	int i,j;
+	
+	for(i=0;i<row;i++)
+	{
+		for(j=0;j<col;j++)
+		{
+			
+			cout<<mat[i][j]<<"\t";
+		}
+		cout<<"\n";
+	}
+}
+
+int main()   
+{
+	matrix<int> m1,m2,m3;
+	int ch;
+	do
+	{
+	cout<<"enter your choice:";
+	cout<<"\n1.getdata \n2.add \n3.display";
+	cin>>ch;
+	
+	switch(ch)  {
+
+	case 1:
+	  cout<<"\nfirst:";
+	  m1.getdata();
+      cout<<"\nsecond:";
+      m2.getdata();
+      cout<<"first is:"<<"\n";
+      m1.display();
+      cout<<"second is:"<<"\n";
+	  m2.display() ;
+	  break;     
+    case 2:
+   
+       m3.add(m1,m2);
+       break;
+    
+    case 3:
+       m3.display();
+       break;
+   }
+}while(ch!=0);
+
+	return 0;
+}
