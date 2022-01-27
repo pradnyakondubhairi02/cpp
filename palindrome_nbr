@@ -1,0 +1,28 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+	int n;
+	cout<<"\nenter the value of n";
+	cin>>n;              //153
+	
+	int digit;
+	int sum=0;
+	int temp=n;
+	
+	while(n!=0)   {
+		digit=n%10;
+		sum=sum+(digit*digit*digit);
+		n=n/10;
+	}
+	
+	if(temp==sum)   {
+		cout<<"\nit is palindrome";
+	}
+	else{
+		cout<<"no,its not palindrome";
+	}
+	
+	
+}
