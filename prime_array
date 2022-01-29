@@ -1,0 +1,35 @@
+#include<iostream>
+#include<math.h>
+using namespace std;
+
+int main()
+{
+    int n;
+	cout<<"\nenter the number";
+	cin>>n;
+	
+	int i=2;
+	while(n)  {
+		
+		if(i==2)  {
+			cout<<i<<"\t";
+			n--;
+		}
+	
+		else {
+				int m=sqrt(i);
+		       int flag=0;
+			for(int j=2;j<=m;j++)  {
+				if(i%j==0)   {
+				    flag=1;
+					break;	
+				}
+			}
+			if(flag==0)   {
+				cout<<i<<"\t";
+				n--;
+			}
+		}
+		i++;
+	}	
+}
