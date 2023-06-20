@@ -41,7 +41,7 @@ cout<<"enter ur choice"<<endl;
  	case(1):
  		cout<<"sum is";
  		add(a,b);
- 		break;
+ 		
  	case(2):
 	 cout<<"subtraction is";
 	 sub(a,b);
